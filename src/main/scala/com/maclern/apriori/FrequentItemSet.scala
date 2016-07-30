@@ -1,4 +1,4 @@
-package maclern.apriori
+package com.maclern.apriori
 
 import scala.collection.mutable
 

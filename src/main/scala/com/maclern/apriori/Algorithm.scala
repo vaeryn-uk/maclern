@@ -1,4 +1,4 @@
-package maclern.apriori
+package com.maclern.apriori
 
 import scala.collection.mutable
 
@@ -20,7 +20,7 @@ class Algorithm(data: TransactionList)
                     (item : Item) => {
                         var value: Int = 0
                         if (itemCollection.contains(item)) {
-                            value = itemCollection.get(item).get
+                            value = itemCollection(item)
                         }
                         itemCollection.put(item, value+1)
                     }
