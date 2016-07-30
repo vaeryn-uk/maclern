@@ -1,4 +1,6 @@
-package com.maclern.apriori
+package com.maclern.data_mining.calculator
+
+import com.maclern.data_mining.Item
 
 import scala.collection.mutable
 

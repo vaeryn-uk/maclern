@@ -1,5 +1,6 @@
-package com.maclern.apriori
+package com.maclern.data_mining
 
+import com.maclern.data_mining.Item
 import org.scalatest._
 
 class ItemSpec extends FlatSpec with Matchers {

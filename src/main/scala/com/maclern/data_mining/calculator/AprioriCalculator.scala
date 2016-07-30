@@ -1,16 +1,16 @@
-package com.maclern.apriori
+package com.maclern.data_mining.calculator
+
+import com.maclern.data_mining.{Item, Transaction, TransactionList}
+import com.maclern.data_mining.{Transaction, TransactionList}
 
 import scala.collection.mutable
 
 /**
   * Created by josh on 30/07/16.
   */
-class Algorithm(data: TransactionList)
+object AprioriCalculator extends FrequentlyUsedItemsCalculator
 {
-
-    override def toString: String = data.toString
-
-    def occurrences: mutable.HashMap[Item, Int] = {
+    def apply(data: TransactionList): FrequentItemSet = {
 
         var itemCollection = new mutable.HashMap[Item, Int]
 
@@ -27,7 +27,7 @@ class Algorithm(data: TransactionList)
                 )
         )
 
-        itemCollection
+        new FrequentItemSet(new mutable.HashMap[List[Item], Int])
 //        var itemCollection = new mutable.HashTable[]
 
 //        new FrequentItemSet(itemCollection);

@@ -1,4 +1,4 @@
-package com.maclern.apriori
+package com.maclern.data_mining
 
 /**
   * A list of transactions.
