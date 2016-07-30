@@ -1,3 +1,5 @@
+package maclern.apriori
+
 /**
   * An item for purchase.
   */

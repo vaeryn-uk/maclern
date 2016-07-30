@@ -1,3 +1,7 @@
+package maclern
+
+import maclern.apriori.{Item, Transaction, TransactionList}
+
 /**
   * Created by andy on 30/07/16.
   */

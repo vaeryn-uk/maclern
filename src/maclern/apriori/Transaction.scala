@@ -1,3 +1,5 @@
+package maclern.apriori
+
 /**
   * A customer's transaction.
   */
