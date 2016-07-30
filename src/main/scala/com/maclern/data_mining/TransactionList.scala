@@ -9,9 +9,11 @@ class TransactionList(val transactions : List[Transaction]) {
     override def toString: String = this.transactions.addString(new StringBuilder, "\n").mkString
     
     override def equals(obj: scala.Any): Boolean =
-        obj.isInstanceOf[TransactionList] && obj.asInstanceOf[TransactionList].transactions.sortWith(sortBy).equals(transactions.sortWith(sortBy))
+        obj.isInstanceOf[TransactionList] && obj.asInstanceOf[TransactionList].transactions.sortWith(sortBy).equals(transactions sortWith sortBy)
 }
 
 object TransactionList {
-    def apply(itemNames : List[List[String]]) : TransactionList = new TransactionList(itemNames map (names => new Transaction(names map (new Item(_)))))
+    def apply(itemNames : List[List[String]]) : TransactionList = new TransactionList(
+        itemNames map (names => new Transaction(names map (new Item(_))))
+    )
 }

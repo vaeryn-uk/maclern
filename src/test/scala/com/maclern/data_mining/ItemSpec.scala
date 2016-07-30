@@ -20,6 +20,6 @@ class ItemSpec extends FlatSpec with Matchers {
     }
     
     "An item" should "not equal a non-item" in {
-        new Item("Foo") shouldNot equal (List())
+        new Item("Foo") shouldNot equal (null)
     }
 }

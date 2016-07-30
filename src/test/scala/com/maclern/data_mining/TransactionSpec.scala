@@ -34,6 +34,6 @@ class TransactionSpec extends FlatSpec with Matchers {
     }
     
     "A transaction" should "not equal a non-transaction" in {
-        transaction shouldNot equal (List())
+        transaction shouldNot equal (null)
     }
 }
