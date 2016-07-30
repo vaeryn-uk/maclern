@@ -10,27 +10,34 @@ import scala.collection.mutable
   */
 object AprioriCalculator extends FrequentlyUsedItemsCalculator
 {
-    def apply(data: TransactionList): FrequentItemSet = {
+    def apply(data: TransactionList, threshold : Int): FrequentItemSet = {
 
-        var itemCollection = new mutable.HashMap[Item, Int]
 
-        data.transactions.foreach(
-            (transaction : Transaction) =>
-                transaction.items.foreach(
-                    (item : Item) => {
-                        var value: Int = 0
-                        if (itemCollection.contains(item)) {
-                            value = itemCollection(item)
-                        }
-                        itemCollection.put(item, value+1)
-                    }
-                )
-        )
-
-        new FrequentItemSet(new mutable.HashMap[List[Item], Int])
-//        var itemCollection = new mutable.HashTable[]
-
-//        new FrequentItemSet(itemCollection);
+        var itemSet = firstIteration(data)
+        this.removeUnderThreshHold(itemSet, threshold)
+        itemSet
     }
 
+    private def removeUnderThreshHold(itemList : FrequentItemSet, threshold : Int) = {
+        itemList.table.filter(_._2 >= threshold )
+    }
+
+
+    private def firstIteration(data: TransactionList): FrequentItemSet = {
+
+        var itemCollection = new mutable.HashMap[List[Item], Int]
+
+        data.transactions.foreach (_.items.foreach(
+                    (item : Item) => {
+                    var value: Int = 0
+                    if (itemCollection.contains(List(item))) {
+                        value = itemCollection(List(item))
+                    }
+                    itemCollection.put(List(item), value + 1)
+                }
+        )
+        )
+
+        new FrequentItemSet(itemCollection)
+    }
 }
