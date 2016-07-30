@@ -20,4 +20,8 @@ class TransactionListSpec extends FlatSpec with Matchers {
     "A transaction list" should "print its transactions" in {
         transactionList.toString should be ("Foo, Bar, Baz\n\nFoo")
     }
+    
+    "A transaction list" should "build from nested lists" in {
+        TransactionList(List(List("Foo", "Bar", "Baz"), List(), List("Foo"))) should equal (transactionList)
+    }
 }
