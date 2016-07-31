@@ -20,7 +20,7 @@ class AprioriCalculatorSpec extends FlatSpec with Matchers {
         table.put(List(new Item("1")), 2)
         table.put(List(new Item("2")), 2)
         table.put(List(new Item("3")), 3)
-        table.put(List(new Item("4")), 2)
+        table.put(List(new Item("4")), 3)
         table.put(List(new Item("5")), 2)
         new FrequentItemSet(table)
     }
