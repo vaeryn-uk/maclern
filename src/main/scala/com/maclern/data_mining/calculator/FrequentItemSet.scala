@@ -9,6 +9,16 @@ import scala.collection.mutable
   */
 class FrequentItemSet(var table: mutable.HashMap[List[Item], Int])
 {
+    def this() = {
+        this(new mutable.HashMap[List[Item], Int]())
+    }
+    
+    def add(list : List[Item]) : Unit = {
+        // Find our existing entry, or initialise a new tuple with amount of zero.
+        val newEntry: (List[Item], Int) = table.find(_._1 equals list) getOrElse(list, 0)
+        // Add the tuple, increasing amount by one.
+        table.put(newEntry._1, newEntry._2 + 1)
+    }
     
     override def equals(obj: scala.Any): Boolean =
         // Is same type

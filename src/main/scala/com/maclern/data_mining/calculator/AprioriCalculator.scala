@@ -46,27 +46,8 @@ object AprioriCalculator extends FrequentlyUsedItemsCalculator
 
 
     private def firstIteration(data: TransactionList): FrequentItemSet = {
-
-        val itemCollection = new mutable.HashMap[List[Item], Int]
-
-//        val mapList = data.transactions.foreach(
-//            (transaction : Transaction) => transaction.items.groupBy(_.name).mapValues(_.size)
-//        )
-
-//        mapList.toMap(itemCollection.put(List(new Item(_._1)), _._2))
-
-        data.transactions.foreach (
-            _.items.foreach(
-                (item : Item) => {
-                    var value: Int = 0
-                    if (itemCollection.contains(List(item))) {
-                        value = itemCollection(List(item))
-                    }
-                    itemCollection.put(List(item), value + 1)
-                }
-            )
-        )
-
-        new FrequentItemSet(itemCollection)
+        val set = new FrequentItemSet()
+        data.transactions.foreach (_.items.foreach((item : Item) => set.add(List(item))))
+        set
     }
 }
