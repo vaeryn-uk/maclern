@@ -51,16 +51,25 @@ class FrequentItemSetSpec extends FlatSpec with Matchers {
         new FrequentItemSet(table)
     }
     
-    "A frequent item set" should "be equal another frequent item set with the same element, in any order" in {
+    "A frequent item set" should "be equal another frequent item set with the same elements, in any order" in {
         setA() should equal (setB())
+        setB() should equal (setA())
+    }
+    
+    "A frequent item set" should "not be equal another frequent item set with different items" in {
         setA() shouldNot equal (setC())
         setA() shouldNot equal (setD())
-        setA() shouldNot equal (setE())
         setB() shouldNot equal (setC())
         setB() shouldNot equal (setD())
-        setB() shouldNot equal (setE())
+        setC() shouldNot equal (setA())
         setC() shouldNot equal (setD())
         setC() shouldNot equal (setE())
+        setD() shouldNot equal (setA())
         setD() shouldNot equal (setE())
+    }
+    
+    "A frequent item set" should "not be equal another frequent item set with same items, but different amounts" in {
+        setA() shouldNot equal (setE())
+        setB() shouldNot equal (setE())
     }
 }

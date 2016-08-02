@@ -9,4 +9,13 @@ import scala.collection.mutable
   */
 class FrequentItemSet(var table: mutable.HashMap[List[Item], Int])
 {
+    
+    override def equals(obj: scala.Any): Boolean =
+        // Is same type
+        obj.isInstanceOf[FrequentItemSet] &&
+        // All elements are in other with same amount
+        table.forall(x => obj.asInstanceOf[FrequentItemSet].table exists (y => (y._1 equals x._1) && (y._2 equals x._2))) &&
+        // Have the same amount of elements
+        (obj.asInstanceOf[FrequentItemSet].table.size equals table.size)
+    
 }
