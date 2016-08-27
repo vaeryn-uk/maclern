@@ -1,5 +1,6 @@
 package com.maclern.data_mining
 
+import com.maclern.data_mining.exception.DuplicateItemException
 import com.maclern.data_mining.{Item, Transaction}
 import org.scalatest._
 
@@ -35,5 +36,11 @@ class TransactionSpec extends FlatSpec with Matchers {
     
     "A transaction" should "not equal a non-transaction" in {
         transaction shouldNot equal (null)
+    }
+    
+    "A transaction" should "not allow an item more than once" in {
+        intercept[DuplicateItemException] {
+            new Transaction(List(new Item("item1"), new Item("item1")))
+        }
     }
 }
