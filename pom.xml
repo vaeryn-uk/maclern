@@ -8,17 +8,26 @@
     <artifactId>maclern</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <scalaBinaryVersion>2.11</scalaBinaryVersion>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.scalactic</groupId>
-            <artifactId>scalactic_2.11</artifactId>
+            <artifactId>scalactic_${scalaBinaryVersion}</artifactId>
             <version>2.2.6</version>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_2.11</artifactId>
+            <artifactId>scalatest_${scalaBinaryVersion}</artifactId>
             <version>2.2.6</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang.modules</groupId>
+            <artifactId>scala-xml_${scalaBinaryVersion}</artifactId>
+            <version>1.0.5</version>
         </dependency>
     </dependencies>
 
@@ -38,7 +47,7 @@
                     <compilerPlugins>
                         <compilerPlugin>
                             <groupId>com.artima.supersafe</groupId>
-                            <artifactId>supersafe_2.11.8</artifactId>
+                            <artifactId>supersafe_${scalaBinaryVersion}</artifactId>
                             <version>1.1.0-RC6</version>
                         </compilerPlugin>
                     </compilerPlugins>

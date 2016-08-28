@@ -5,7 +5,7 @@ import com.maclern.data_mining.{Item, Transaction, TransactionList}
 import com.maclern.util.Bool
 
 import scala.collection.mutable.ListBuffer
-import scala.xml.{Elem, XML};
+import scala.xml.{Elem, XML}
 
 /**
   * Loads a transaction list from an XML file.
