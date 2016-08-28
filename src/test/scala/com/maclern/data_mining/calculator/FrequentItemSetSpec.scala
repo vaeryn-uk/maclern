@@ -9,19 +9,19 @@ class FrequentItemSetSpec extends FlatSpec with Matchers {
     val setA = () => {
         val table = new mutable.HashMap[List[Item], Int]()
         table.put(List(new Item("1")), 3)
-        table.put(List(new Item("2")), 1)
+        table.put(List(new Item("2"), new Item("1")), 1)
         table.put(List(new Item("3")), 2)
         table.put(List(new Item("4")), 3)
-        table.put(List(new Item("5")), 5)
+        table.put(List(new Item("5"), new Item("4")), 5)
         new FrequentItemSet(table)
     }
     
     val setB = () => {
         val table = new mutable.HashMap[List[Item], Int]()
-        table.put(List(new Item("2")), 1)
+        table.put(List(new Item("2"), new Item("1")), 1)
         table.put(List(new Item("1")), 3)
         table.put(List(new Item("4")), 3)
-        table.put(List(new Item("5")), 5)
+        table.put(List(new Item("5"), new Item("4")), 5)
         table.put(List(new Item("3")), 2)
         new FrequentItemSet(table)
     }
