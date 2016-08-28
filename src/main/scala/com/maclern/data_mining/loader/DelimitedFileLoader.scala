@@ -32,7 +32,6 @@ class DelimitedFileLoader(
             source = Source.fromFile(file)
         } catch {
             case e: FileNotFoundException => {
-                println (e.getMessage)
                 throw new LoadException(cause = e)
             }
         }

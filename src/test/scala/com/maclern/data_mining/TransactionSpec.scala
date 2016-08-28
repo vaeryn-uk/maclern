@@ -43,4 +43,20 @@ class TransactionSpec extends FlatSpec with Matchers {
             new Transaction(List(new Item("item1"), new Item("item1")))
         }
     }
+
+    "A transaction" should "report whether it contains items #1" in {
+        transaction.contains(List(new Item("Foo"))) should equal (true)
+    }
+
+    "A transaction" should "report whether it contains items #2" in {
+        transaction.contains(List(new Item("Foo"), new Item("Bar"))) should equal (true)
+    }
+
+    "A transaction" should "report whether it contains items #3" in {
+        transaction.contains(List(new Item("Foo"), new Item("Bar"), new Item("Baz"))) should equal (true)
+    }
+
+    "A transaction" should "report that it does not contain items" in {
+        transaction.contains(List(new Item("Qux"))) should equal (false)
+    }
 }

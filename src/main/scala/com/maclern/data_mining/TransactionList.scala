@@ -6,10 +6,6 @@ package com.maclern.data_mining
 class TransactionList(val transactions : List[Transaction]) {
     private val sortBy = (a : Transaction, b : Transaction) => a < b
 
-//    def addTransactionList: (val transactions : List[Transaction]): TransactionList {
-//
-//    }
-
     override def toString: String = this.transactions.addString(new StringBuilder, "\n").mkString
     
     override def equals(obj: scala.Any): Boolean =

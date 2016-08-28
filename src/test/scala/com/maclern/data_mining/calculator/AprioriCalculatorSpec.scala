@@ -33,7 +33,7 @@ class AprioriCalculatorSpec extends FlatSpec with Matchers {
         new Transaction(List(item7, item1, item2))
     ))
     
-    def expected : FrequentItemSet = {
+    def itemCount1Expectation : FrequentItemSet = {
         val table = new mutable.HashMap[List[Item], Int]
         table.put(List(new Item("1")), 2)
         table.put(List(new Item("2")), 2)
@@ -42,13 +42,120 @@ class AprioriCalculatorSpec extends FlatSpec with Matchers {
         table.put(List(new Item("5")), 2)
         new FrequentItemSet(table)
     }
-    
-    "The calculator" should "calculate the most frequently used items with identical item instances" in {
-        AprioriCalculator(identicalTransactionList, 2) should equal (expected)
+
+    "The calculator" should "calculate frequently with equivalent item set" in {
+        AprioriCalculator(equivalentTransactionList, 2) should equal (
+            new FrequentItemSet(List(
+                (List(new Item("3"), new Item("4"), new Item("5")), 2)
+            ))
+        )
     }
-    
-    "The calculator" should "calculate the most frequently used items with equivalent item instances" in {
-//        AprioriCalculator(equivalentTransactionList, 2) should equal (expected)
+
+    "The calculator" should "calculate frequently with identical item set" in {
+        AprioriCalculator(identicalTransactionList, 2) should equal (
+            new FrequentItemSet(List(
+                (List(new Item("3"), new Item("4"), new Item("5")), 2)
+            ))
+        )
     }
-    
+
+    "The calculator" should "calculate the example from https://www.youtube.com/watch?v=Hk1zFOMLTrw" in {
+        AprioriCalculator(
+            TransactionList(List(
+                List("1", "3", "4"),
+                List("2", "3", "5"),
+                List("1", "2", "3", "5"),
+                List("2", "5"),
+                List("1", "3", "5")
+            )),
+            2
+        ) should equal (
+            new FrequentItemSet(List(
+                (List(new Item("1"), new Item("3"), new Item("5")), 2),
+                (List(new Item("2"), new Item("3"), new Item("5")), 2)
+            ))
+        )
+    }
+
+    "The calculator" should "calculate the Wikipedia example, https://en.wikipedia.org/wiki/Apriori_algorithm#Example_2" in {
+        AprioriCalculator(
+            TransactionList(List(
+                List("1", "2", "3", "4"),
+                List("1", "2", "4"),
+                List("1", "2"),
+                List("2", "3", "4"),
+                List("2", "3"),
+                List("3", "4"),
+                List("2", "4")
+            )),
+            3
+        ) should equal (
+            new FrequentItemSet(List(
+                (List(new Item("1"), new Item("2")), 3),
+                (List(new Item("2"), new Item("3")), 3),
+                (List(new Item("2"), new Item("4")), 4),
+                (List(new Item("3"), new Item("4")), 3)
+            ))
+        )
+    }
+
+    "The calculator" should "calculate the extended Wikipedia example" in {
+        AprioriCalculator(
+            TransactionList(List(
+                List("1", "2", "3", "4", "5"),
+                List("1", "2", "3", "4"),
+                List("1", "2"),
+                List("2", "3", "4", "5"),
+                List("2", "3"),
+                List("2", "3", "4", "5"),
+                List("2", "4")
+            )),
+            2
+        ) should equal (
+            new FrequentItemSet(List(
+                (List(new Item("1"), new Item("2"), new Item("3"), new Item("4")), 2),
+                (List(new Item("2"), new Item("3"), new Item("4"), new Item("5")), 3)
+            ))
+        )
+    }
+
+    "The calculator" should "calculate the extended Wikipedia example... Extended" in {
+        AprioriCalculator(
+            TransactionList(List(
+                List("1", "2", "3", "4", "5", "6"),
+                List("1", "2", "3", "4"),
+                List("1", "2"),
+                List("2", "3", "4", "5"),
+                List("2", "3"),
+                List("2", "3", "4", "5", "6"),
+                List("2", "4")
+            )),
+            2
+        ) should equal (
+            new FrequentItemSet(List(
+                (List(new Item("2"), new Item("3"), new Item("4"), new Item("5"), new Item("6")), 2)
+            ))
+        )
+    }
+
+    "The calculator" should "calculate the extended Wikipedia example with higher threshold" in {
+        AprioriCalculator(
+            TransactionList(List(
+                List("1", "2", "3", "4", "5", "6"),
+                List("1", "2", "3", "4"),
+                List("1", "2"),
+                List("2", "3", "5"),
+                List("2", "3"),
+                List("2", "3", "4", "5", "6"),
+                List("2", "3", "4", "5", "6"),
+                List("2", "3", "4", "5"),
+                List("2", "4")
+            )),
+            4
+        ) should equal (
+            new FrequentItemSet(List(
+                (List(new Item("2"), new Item("3"), new Item("4"), new Item("5")), 4)
+            ))
+        )
+    }
 }

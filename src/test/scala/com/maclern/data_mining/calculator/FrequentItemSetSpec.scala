@@ -113,4 +113,43 @@ class FrequentItemSetSpec extends FlatSpec with Matchers {
               |[3, 4] => 1""".stripMargin
         )
     }
+
+    "A frequent item set" should "be pruned" in {
+        val itemSet = new FrequentItemSet()
+
+        itemSet.add(List(new Item("3"), new Item("1")))
+        itemSet.add(List(new Item("3"), new Item("1")))
+        itemSet.add(List(new Item("3"), new Item("1")))
+        itemSet.add(List(new Item("1"), new Item("2")))
+        itemSet.add(List(new Item("1"), new Item("2")))
+        itemSet.add(List(new Item("2"), new Item("3")))
+        itemSet.add(List(new Item("3"), new Item("4")))
+
+        itemSet.prune(2).toString should equal (
+            """[1, 2] => 2
+              |[1, 3] => 3""".stripMargin
+        )
+    }
+
+    "A frequent item set" should "be constructed from list, int tuples" in {
+        new FrequentItemSet(List(
+            (List(new Item("1"), new Item("2")), 2),
+            (List(new Item("1"), new Item("3")), 3)
+        )).toString should equal(
+            """[1, 2] => 2
+              |[1, 3] => 3""".stripMargin
+        )
+    }
+
+    "A frequent item set" should "handle equality checks with multi-item lists" in {
+        new FrequentItemSet(List(
+            (List(new Item("1"), new Item("2")), 2),
+            (List(new Item("2"), new Item("3")), 3)
+        )) should equal(
+            new FrequentItemSet(List(
+                (List(new Item("3"), new Item("2")), 3),
+                (List(new Item("1"), new Item("2")), 2)
+            ))
+        )
+    }
 }

@@ -29,4 +29,8 @@ class Transaction(val items: List[Item]) {
     
     override def equals(obj: scala.Any) : Boolean =
         obj.isInstanceOf[Transaction] && items.sortWith(sortBy).equals(obj.asInstanceOf[Transaction].items.sortWith(sortBy))
+
+    def contains(prospectItems : List[Item]) : Boolean = {
+        items.count(prospectItems.contains(_)) equals prospectItems.length
+    }
 }
