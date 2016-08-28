@@ -94,4 +94,23 @@ class FrequentItemSetSpec extends FlatSpec with Matchers {
             _._1.equals(List(new Item("1"), new Item("2")))
         ).getOrElse((List(), 0))._2 should equal (2)
     }
+
+    "A frequent item set" should "be printed as a string" in {
+        val itemSet = new FrequentItemSet()
+
+        itemSet.add(List(new Item("1"), new Item("3")))
+        itemSet.add(List(new Item("1"), new Item("3")))
+        itemSet.add(List(new Item("1"), new Item("3")))
+        itemSet.add(List(new Item("1"), new Item("2")))
+        itemSet.add(List(new Item("1"), new Item("2")))
+        itemSet.add(List(new Item("2"), new Item("3")))
+        itemSet.add(List(new Item("3"), new Item("4")))
+
+        itemSet.toString should equal (
+            """[1, 2] => 2
+              |[1, 3] => 3
+              |[2, 3] => 1
+              |[3, 4] => 1""".stripMargin
+        )
+    }
 }

@@ -15,7 +15,7 @@ class FrequentItemSet(val table: mutable.HashMap[List[Item], Int])
     
     def add(list : List[Item]) : Unit = {
         val sortFn = (a : Item, b : Item) => a < b
-        
+
         // Find our existing entry, or initialise a new tuple with amount of zero.
         val newEntry: (List[Item], Int) = table.find(
             _._1.sortWith(sortFn) equals list.sortWith(sortFn)
@@ -32,5 +32,11 @@ class FrequentItemSet(val table: mutable.HashMap[List[Item], Int])
         table.forall(x => obj.asInstanceOf[FrequentItemSet].table exists (y => (y._1 equals x._1) && (y._2 equals x._2))) &&
         // Have the same amount of elements
         (obj.asInstanceOf[FrequentItemSet].table.size equals table.size)
-    
+
+
+    override def toString = {
+        table.toList
+            .sortWith((a, b) => a._1.mkString < b._1.mkString)
+            .map(entry => "[" + entry._1.mkString(", ") + "] => " + entry._2.toString).mkString("\n")
+    }
 }
