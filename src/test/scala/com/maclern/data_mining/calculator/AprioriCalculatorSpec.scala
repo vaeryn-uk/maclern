@@ -34,13 +34,13 @@ class AprioriCalculatorSpec extends FlatSpec with Matchers {
     ))
     
     def itemCount1Expectation : FrequentItemSet = {
-        val table = new mutable.HashMap[List[Item], Int]
-        table.put(List(new Item("1")), 2)
-        table.put(List(new Item("2")), 2)
-        table.put(List(new Item("3")), 3)
-        table.put(List(new Item("4")), 3)
-        table.put(List(new Item("5")), 2)
-        new FrequentItemSet(table)
+        new FrequentItemSet(List(
+            (List(new Item("1")), 2),
+            (List(new Item("2")), 2),
+            (List(new Item("3")), 3),
+            (List(new Item("4")), 3),
+            (List(new Item("5")), 2)
+        ))
     }
 
     "The calculator" should "calculate frequently with equivalent item set" in {

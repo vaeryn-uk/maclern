@@ -17,6 +17,8 @@ object AprioriCalculator extends FrequentlyUsedItemsCalculator
 
         data.transactions.foreach(t => t.items.foreach(i => frequentItemSet.add(List(i))))
 
+        frequentItemSet.prune(threshold)
+
         while (frequentItemSet.table.nonEmpty) {
             candidateSet = iteration(frequentItemSet, k, data).prune(threshold)
 
@@ -39,6 +41,9 @@ object AprioriCalculator extends FrequentlyUsedItemsCalculator
         // 1. Get combinations
         // 2. For each combination, how many transaction does that appear in?
         // 3. Return combinations with occurrence count in FrequentItemSet.
+
+        println("doing iteration, k = " + k)
+        println("combinations found in k - 1: " + frequentItemSet.table.size)
 
         val relevantItems = frequentItemSet.table.keys.toList.flatten
         val newItemSet = new FrequentItemSet()

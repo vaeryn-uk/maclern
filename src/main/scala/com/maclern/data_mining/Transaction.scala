@@ -17,7 +17,7 @@ class Transaction(val items: List[Item]) {
     items.foreach(
         item =>
             Bool(items.exists(prospect => prospect.equals(item) && !(prospect eq item)))
-                .implies(() => throw new DuplicateItemException )
+                .implies(() => throw new DuplicateItemException(item + " already exists!") )
     )
     
     private val sortBy = (a : Item, b : Item) => a < b

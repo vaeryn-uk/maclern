@@ -2,15 +2,20 @@ package com.maclern.data_mining.calculator
 
 import com.maclern.data_mining.Item
 
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable
+
+private object MyOrdering extends Ordering[List[Item]] {
+    def compare(a:List[Item], b:List[Item]) = a.mkString compare b.mkString
+}
 
 /**
   * Created by josh on 30/07/16.
   */
-class FrequentItemSet(var table: mutable.HashMap[List[Item], Int])
+class FrequentItemSet(var table: TreeMap[List[Item], Int])
 {
     def this() = {
-        this(new mutable.HashMap[List[Item], Int]())
+        this(new TreeMap[List[Item], Int]()(MyOrdering))
     }
 
     def this(items : List[(List[Item], Int)]) = {
@@ -20,14 +25,13 @@ class FrequentItemSet(var table: mutable.HashMap[List[Item], Int])
     
     def add(list : List[Item]) : Unit = {
         val sortFn = (a : Item, b : Item) => a < b
+        val sortedList = list.sortWith(sortFn)
 
         // Find our existing entry, or initialise a new tuple with amount of zero.
-        val newEntry: (List[Item], Int) = table.find(
-            _._1.sortWith(sortFn) equals list.sortWith(sortFn)
-        ) getOrElse(list, 0)
+        val newEntry: (List[Item], Int) = table.find(_._1 equals sortedList) getOrElse(sortedList, 0)
         
         // Add the tuple, increasing amount by one.
-        table.put(newEntry._1, newEntry._2 + 1)
+        table = table.updated(newEntry._1, newEntry._2 + 1)
     }
 
     def prune(int: Int) : FrequentItemSet = {
@@ -35,17 +39,10 @@ class FrequentItemSet(var table: mutable.HashMap[List[Item], Int])
 
         this
     }
-    
-    override def equals(obj: scala.Any): Boolean = {
-        (toString equals obj.toString) && obj.isInstanceOf[FrequentItemSet]
-    }
 
 
     override def toString = {
         table.toList
-            .sortWith(
-                (a, b) => a._1.sortWith((a, b) => a < b).mkString("") < b._1.sortWith((a, b) => a < b).mkString("")
-            )
             .map(entry => "[" + entry._1.sortWith((a, b) => a < b).mkString(", ") + "] => " + entry._2.toString).mkString("\n")
     }
 }

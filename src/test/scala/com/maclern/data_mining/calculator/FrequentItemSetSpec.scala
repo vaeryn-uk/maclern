@@ -7,48 +7,48 @@ import scala.collection.mutable
 class FrequentItemSetSpec extends FlatSpec with Matchers {
     
     val setA = () => {
-        val table = new mutable.HashMap[List[Item], Int]()
-        table.put(List(new Item("1")), 3)
-        table.put(List(new Item("2"), new Item("1")), 1)
-        table.put(List(new Item("3")), 2)
-        table.put(List(new Item("4")), 3)
-        table.put(List(new Item("5"), new Item("4")), 5)
-        new FrequentItemSet(table)
+        new FrequentItemSet(List(
+            (List(new Item("1")), 3),
+            (List(new Item("2"), new Item("1")), 1),
+            (List(new Item("3")), 2),
+            (List(new Item("4")), 3),
+            (List(new Item("5"), new Item("4")), 5)
+        ))
     }
     
     val setB = () => {
-        val table = new mutable.HashMap[List[Item], Int]()
-        table.put(List(new Item("2"), new Item("1")), 1)
-        table.put(List(new Item("1")), 3)
-        table.put(List(new Item("4")), 3)
-        table.put(List(new Item("5"), new Item("4")), 5)
-        table.put(List(new Item("3")), 2)
-        new FrequentItemSet(table)
+        new FrequentItemSet(List(
+            (List(new Item("2"), new Item("1")), 1),
+            (List(new Item("1")), 3),
+            (List(new Item("4")), 3),
+            (List(new Item("5"), new Item("4")), 5),
+            (List(new Item("3")), 2)
+        ))
     }
     
     val setC = () => {
-        val table = new mutable.HashMap[List[Item], Int]()
-        table.put(List(new Item("2")), 1)
-        table.put(List(new Item("1")), 3)
-        table.put(List(new Item("4")), 3)
-        table.put(List(new Item("5")), 5)
-        table.put(List(new Item("3")), 2)
-        table.put(List(new Item("6")), 0)
-        new FrequentItemSet(table)
+        new FrequentItemSet(List(
+            (List(new Item("2")), 1),
+            (List(new Item("1")), 3),
+            (List(new Item("4")), 3),
+            (List(new Item("5")), 5),
+            (List(new Item("3")), 2),
+            (List(new Item("6")), 0)
+        ))
     }
     
     val setD = () => {
-        new FrequentItemSet(new mutable.HashMap[List[Item], Int]())
+        new FrequentItemSet()
     }
     
     val setE = () => {
-        val table = new mutable.HashMap[List[Item], Int]()
-        table.put(List(new Item("2")), 1)
-        table.put(List(new Item("1")), 2)
-        table.put(List(new Item("4")), 4)
-        table.put(List(new Item("5")), 6)
-        table.put(List(new Item("3")), 1)
-        new FrequentItemSet(table)
+        new FrequentItemSet(List(
+            (List(new Item("2")), 1),
+            (List(new Item("1")), 2),
+            (List(new Item("4")), 4),
+            (List(new Item("5")), 6),
+            (List(new Item("3")), 1)
+        ))
     }
     
     "A frequent item set" should "be equal another frequent item set with the same elements, in any order" in {
