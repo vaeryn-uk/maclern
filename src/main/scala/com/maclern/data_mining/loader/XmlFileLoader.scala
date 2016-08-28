@@ -1,6 +1,8 @@
 package com.maclern.data_mining.loader
 
+import com.maclern.data_mining.loader.exception.LoadException
 import com.maclern.data_mining.{Item, Transaction, TransactionList}
+import com.maclern.util.Bool
 
 import scala.collection.mutable.ListBuffer
 import scala.xml.{Elem, XML};
@@ -36,9 +38,9 @@ class XmlFileLoader(val file : String) extends TransactionLoader
         var endOfItem = false
         var endOfTransaction = false
         
-        if (root.label != "transaction-list") {
-            // TODO: throw
-        }
+        Bool(root.label != "transaction-list")->(
+            () => throw new LoadException("Expected XML root element 'transaction-list'")
+        )
         
         val transactions : ListBuffer[Transaction] = new ListBuffer[Transaction]()
         
