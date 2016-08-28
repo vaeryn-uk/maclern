@@ -72,4 +72,26 @@ class FrequentItemSetSpec extends FlatSpec with Matchers {
         setA() shouldNot equal (setE())
         setB() shouldNot equal (setE())
     }
+    
+    "A frequent item set" should "increment when multi item lists exists" in {
+        val itemSet = new FrequentItemSet()
+        
+        itemSet.add(List(new Item("1"), new Item("2")))
+        itemSet.add(List(new Item("1"), new Item("2")))
+        
+        itemSet.table.find(
+            _._1.equals(List(new Item("1"), new Item("2")))
+        ).getOrElse((List(), 0))._2 should equal (2)
+    }
+    
+    "A frequent item set" should "increment when multi item lists exists in different orders" in {
+        val itemSet = new FrequentItemSet()
+        
+        itemSet.add(List(new Item("1"), new Item("2")))
+        itemSet.add(List(new Item("2"), new Item("1")))
+        
+        itemSet.table.find(
+            _._1.equals(List(new Item("1"), new Item("2")))
+        ).getOrElse((List(), 0))._2 should equal (2)
+    }
 }
