@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<transaction-list>
+    <transaction>
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+    </transaction>
+    <transaction>
+        <item>Item 4</item>
+        <item>Item 5</item>
+        <item>Item 6</item>
+    </transaction>
+    <transaction>
+        <item>Item 7</item>
+        <item>Item 8</item>
+    </transaction>
+</transaction-list>

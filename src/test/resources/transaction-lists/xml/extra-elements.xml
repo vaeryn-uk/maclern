@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<transaction-list>
+    <transaction>
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+    </transaction>
+    <not-transaction>
+        <not-item>Not item</not-item>
+    </not-transaction>
+</transaction-list>
